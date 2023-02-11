@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div>
+    <input type="text" id="message-input">
+    <button id="message-submit">Send Message</button>
+</div>
+<script src="{% static 'room.js' %}"></script>
+{% endblock content %}
