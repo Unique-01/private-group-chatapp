@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-
-<div>
-    <input type="text" id="message-input">
-    <button id="message-submit">Send Message</button>
-</div>
-<script src="{% static 'room.js' %}"></script>
+    <div id="message-box"></div>
+    <div>
+        <input type="text" id="message-input" />
+        <button id="message-submit">Send Message</button>
+    </div>
+    {{ room_name|json_script:"room-name" }}
+    {{ request.user.username | json_script:"request-user" }}
+    <script src="{% static 'room.js' %}"></script>
 {% endblock content %}

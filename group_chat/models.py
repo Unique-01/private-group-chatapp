@@ -3,15 +3,15 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+
 class Room(models.Model):
-    participant = models.ManyToManyField(User,related_name='participant')
-    admin = models.ForeignKey(User, on_delete=models.CASCADE,related_name='admin')
-    room_name=models.CharField(max_length=500)
+    participant = models.ManyToManyField(User, related_name="participant")
+    admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name="admin")
+    room_name = models.CharField(max_length=500)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.room_name
-    
 
 
 class RoomMessage(models.Model):
@@ -21,6 +21,4 @@ class RoomMessage(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.sender}-{self.content:30}'
-
-    
+        return f"{self.sender}-{self.content:30}"
