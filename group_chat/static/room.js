@@ -1,5 +1,5 @@
 const roomName = JSON.parse(document.getElementById('room-name').textContent);
-const chatSocket = new WebSocket("ws://" + window.location.host + '/ws/chat/' + roomName + '/');
+const chatSocket = new WebSocket("ws://" + window.location.host + '/ws/roomchat/' + roomName + '/');
 const requestUser = JSON.parse(document.getElementById('request-user').textContent);
 
 chatSocket.onopen = function (e) {

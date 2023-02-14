@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+        <h3>Available Rooms</h3>
+        {% for room in availableRoom %}
+            <p>
+                <a href="{% url 'room' room.room_name %}">{{ room.room_name }}</a>
+            </p>
+        {% endfor %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ roomForm.as_p }}
+            <button type="submit">Create room</button>
+        </form>
+    </div>
+    <div>
+        <h3>Available Users</h3>
+        {% for user in availableUser %}
+            <p>
+                <a href="{% url 'private' user.username %}">{{ user.username }}</a>
+            </p>
+        {% endfor %}
+    </div>
+{% endblock content %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div id="message-box"></div>
+    <div>
+        <input type="text" id="message-input" />
+        <button id="message-submit">Send Message</button>
+    </div>
+    {{ username|json_script:"username" }}
+    {{ request.user.username|json_script:"request-user" }}
+    <script src="{% static 'privatechat.js' %}"></script>
+{% endblock content %}
