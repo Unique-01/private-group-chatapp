@@ -2,8 +2,9 @@ from django.shortcuts import render
 from group_chat.models import Room
 from group_chat.forms import RoomForm
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def indexView(request):
     availableRoom = Room.objects.all()
     availableUser = User.objects.all()

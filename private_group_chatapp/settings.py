@@ -31,6 +31,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 4
+
 
 # Application definition
 
@@ -41,10 +43,17 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
     "channels",
     "group_chat",
     "private_chat",
+    "accounts",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
 ]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -132,3 +141,31 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
+
+AUTHENTICATION_BACKENDS =[
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+
+SOCIALACCOUNT_PROVIDERS ={
+    "google":{
+        "SCOPE":[
+            "profile",
+            "email"
+        ],
+        "AUTH_PARAMS":{
+            "access_type":"online",
+        },
+        "APP":{
+            'client_id':os.environ['GOOGLE_CLIENT_ID'],
+            'secret':os.environ['GOOGLE_SECRET_KEY'],
+            'key':'',
+        }
+    }
+}
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+
+ACCOUNT_EMAIL_REQUIRED = True
