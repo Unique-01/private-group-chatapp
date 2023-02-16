@@ -173,4 +173,4 @@ LOGOUT_REDIRECT_URL = '/'
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
-ACCOUNT_FORMS = {'login': 'accounts.forms.CustomLoginForm'}
+ACCOUNT_FORMS = {'login': 'accounts.forms.CustomLoginForm','signup': 'accounts.forms.CustomSignupForm'}

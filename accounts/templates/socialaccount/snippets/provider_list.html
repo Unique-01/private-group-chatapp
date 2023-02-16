@@ -1,4 +1,4 @@
-{% load socialaccount %}
+{% load socialaccount static %}
 {% get_providers as socialaccount_providers %}
 {% for provider in socialaccount_providers %}
   {% if provider.id == "openid" %}
@@ -10,9 +10,9 @@
       </li>
     {% endfor %}
   {% endif %}
-
-    <a title="{{ provider.name }}"
-       class="socialaccount_provider {{ provider.id }} btn btn-light btn-block"
-       href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i class="fa fa-google text-danger"></i> &ThickSpace; &ThickSpace; &ThickSpace; Continue with {{ provider.name }}</a>
-
+  <a title="{{ provider.name }}"
+     class="socialaccount_provider {{ provider.id }} btn border btn-light btn-block my-4 "
+     href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
+    <img src="{% static 'google.svg' %}" alt="" width="20" height="20"/>
+  &ThickSpace; &ThickSpace; &ThickSpace; Continue with {{ provider.name }}</a>
 {% endfor %}
