@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
+    "crispy_forms"
 ]
 
 
@@ -139,6 +140,8 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+CRISPY_TEMPLATE_PACK='bootstrap4'
+
 
 CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
 
@@ -169,3 +172,5 @@ LOGOUT_REDIRECT_URL = '/'
 
 
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_FORMS = {'login': 'accounts.forms.CustomLoginForm'}

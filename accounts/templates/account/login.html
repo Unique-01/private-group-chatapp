@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load i18n account socialaccount crispy_forms_tags %}
+{% block head_title %}
+    {% trans "Login to UnicChat" %}
+{% endblock head_title %}
+{% block content %}
+    <div class="col-md-4 container shadow p-5 mt-5 text-center">
+        <h4>{% trans "Sign In to UnicChat" %}</h4>
+        {% get_providers as socialaccount_providers %}
+        {% if socialaccount_providers %}
+            {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+            {% include "socialaccount/snippets/login_extra.html" %}
+        {% endif %}
+        <span>
+            <hr/>
+            {% trans "OR" %}
+            <hr/>
+        </span>
+        <form class="login" method="post" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            {{ form.login|as_crispy_field }}
+            {{ form.password|as_crispy_field }}
+            <button class="primaryAction btn btn-success btn-block" type="submit">{% trans "Sign In" %}</button>
+            <div class="row my-3">
+                <span class="col">{{ form.remember|as_crispy_field }}</span>
+                <a class="button col secondaryAction"
+                   href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+            </div>
+            {% if redirect_field_value %}
+                <input type="hidden"
+                       name="{{ redirect_field_name }}"
+                       value="{{ redirect_field_value }}"/>
+            {% endif %}
+        </form>
+    </div>
+{% endblock content %}
