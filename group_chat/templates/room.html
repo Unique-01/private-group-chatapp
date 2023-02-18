@@ -1,12 +1,41 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    <div id="message-box"></div>
-    <div>
-        <input type="text" id="message-input" />
-        <button id="message-submit">Send Message</button>
+    <div class="container col-md-6 my-5 shadow rounded p-4 min-height">
+        <h3>{{ room_name |capfirst }}</h3>
+        <hr/>
+        <div id="message-box">
+            {% for message in messages %}
+                {% if message.sender == request.user %}
+                    <div class="d-flex justify-content-end">
+                        <p>
+                            <span>{{ message.content }}</span>
+                            <br/>
+                            <small>{{ message.timestamp }}</small>
+                        </p>
+                    </div>
+                {% else %}
+                    <div class="d-flex justify-content-start">
+                        <p>
+                            <small>{{ message.sender }}</small>
+                            <br/>
+                            <span>{{ message.content }}</span>
+                            <br/>
+                            <small>{{ message.timestamp }}</small>
+                        </p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="input-group mb-3 fixed-bottom container col-md-6">
+            <input class="form-control" type="text" id="message-input" />
+            <div class="input-group-append">
+                <button class="btn bg-violet text-white" id="message-submit">Send Message</button>
+            </div>
+        </div>
     </div>
     {{ room_name|json_script:"room-name" }}
     {{ request.user.username | json_script:"request-user" }}
+    {{ now|time|json_script:"time-now" }}
     <script src="{% static 'room.js' %}"></script>
 {% endblock content %}

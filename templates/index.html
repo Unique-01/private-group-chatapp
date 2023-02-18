@@ -1,24 +1,30 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
-    <div>
-        <h3>Available Rooms</h3>
-        {% for room in availableRoom %}
-            <p>
-                <a href="{% url 'room' room.room_name %}">{{ room.room_name }}</a>
-            </p>
-        {% endfor %}
-        <form action="" method="post">
-            {% csrf_token %}
-            {{ roomForm.as_p }}
-            <button type="submit">Create room</button>
-        </form>
-    </div>
-    <div>
-        <h3>Available Users</h3>
-        {% for user in availableUser %}
-            <p>
-                <a href="{% url 'private' user.username %}">{{ user.username }}</a>
-            </p>
-        {% endfor %}
+    <div class="row container mx-auto mt-5 ">
+        <div class="col-md-5 mr-5 shadow p-5">
+            <form action="" method="post" class="mb-3">
+                <h5>Create new room</h5>
+                {% csrf_token %}
+                {{ roomForm|crispy }}
+                <button class="btn bg-violet text-white" type="submit">Create room</button>
+            </form>
+            <h3>Available Rooms</h3>
+            <hr/>
+            {% for room in availableRoom %}
+                <a href="{% url 'room' room.room_name %}">
+                    <p class="{% cycle 'bg-violet' 'bg-brown' %} rounded p-2 text-white">{{ room.room_name|capfirst }}</p>
+                </a>
+            {% endfor %}
+        </div>
+        <div class="col-md-5 ml-5 shadow p-5">
+            <h3>Available Users</h3>
+            <hr/>
+            {% for user in availableUser %}
+                <p class="{% cycle 'bg-violet' 'bg-brown' %} p-2 rounded">
+                    <a class="text-white big-text" href="{% url 'private' user.username %}">{{ user.username |capfirst }}</a>
+                </p>
+            {% endfor %}
+        </div>
     </div>
 {% endblock content %}

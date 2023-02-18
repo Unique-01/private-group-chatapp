@@ -1,6 +1,33 @@
 body{
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+a{
+    text-decoration: none !important;
+}
 .width{
     max-width: 350px;
+}
+.min-height{
+    min-height: 70vh;
+}
+.bg-violet{
+    background-color: violet;
+}
+.bg-violet:hover{
+    background-color: blueviolet;
+}
+.bg-indigo{
+    background-color: indigo;
+}
+.bg-purple{
+    background-color: purple;
+}
+.bg-brown{
+    background-color: blueviolet;
+}
+.bg-brown:hover{
+    background-color: violet;
+}
+.big-text{
+    font-size: large;
 }

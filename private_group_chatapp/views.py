@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from group_chat.models import Room
 from group_chat.forms import RoomForm
 from django.contrib.auth.models import User
