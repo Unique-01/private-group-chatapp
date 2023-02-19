@@ -21,9 +21,11 @@
             <h3>Available Users</h3>
             <hr/>
             {% for user in availableUser %}
-                <p class="{% cycle 'bg-violet' 'bg-brown' %} p-2 rounded">
-                    <a class="text-white big-text" href="{% url 'private' user.username %}">{{ user.username |capfirst }}</a>
-                </p>
+                {% if user != request.user %}
+                    <a href="{% url 'private' user.username %}">
+                        <p class="{% cycle 'bg-violet' 'bg-brown' %} rounded p-2 text-white">{{ user.username|capfirst }}</p>
+                    </a>
+                {% endif %}
             {% endfor %}
         </div>
     </div>
