@@ -4,7 +4,7 @@ from channels.db import database_sync_to_async
 from .models import RoomMessage, Room
 from django.contrib.auth.models import User
 from asgiref.sync import sync_to_async, async_to_sync
-
+import datetime
 
 class GroupChatConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
@@ -35,6 +35,7 @@ class GroupChatConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         username = text_data_json["username"]
         message = text_data_json["message"]
+        timestamp = datetime.datetime.now().isoformat()
 
         await self.save_message(
             sender=self.scope["user"], content=message, room_name=self.room_name
@@ -42,13 +43,14 @@ class GroupChatConsumer(AsyncWebsocketConsumer):
 
         await self.channel_layer.group_send(
             self.room_group_name,
-            {"type": "roomMessage", "username": username, "message": message},
+            {"type": "roomMessage", "username": username, "message": message,"timestamp":timestamp},
         )
 
     async def roomMessage(self, event):
         username = event["username"]
         message = event["message"]
+        timestamp = event["timestamp"]
 
         await self.send(
-            text_data=json.dumps({"username": username, "message": message})
+            text_data=json.dumps({"username": username, "message": message,"timestamp":timestamp})
         )

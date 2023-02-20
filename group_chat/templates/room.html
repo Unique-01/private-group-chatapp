@@ -11,7 +11,13 @@
                         <p>
                             <span>{{ message.content }}</span>
                             <br/>
-                            <small>{{ message.timestamp }}</small>
+                            <small class="d-flex justify-content-end timestamp" >
+                                {% if message.timestamp|date == now|date %}
+                                    {{ message.timestamp |time }}
+                                {% else %}
+                                    {{ message.timestamp }}
+                                {% endif %}
+                            </small>
                         </p>
                     </div>
                 {% else %}
@@ -21,7 +27,13 @@
                             <br/>
                             <span>{{ message.content }}</span>
                             <br/>
-                            <small>{{ message.timestamp }}</small>
+                            <small class="timestamp">
+                                {% if message.timestamp|date == now|date %}
+                                    {{ message.timestamp |time }}
+                                {% else %}
+                                    {{ message.timestamp }}
+                                {% endif %}
+                            </small>
                         </p>
                     </div>
                 {% endif %}
@@ -36,6 +48,6 @@
     </div>
     {{ room_name|json_script:"room-name" }}
     {{ request.user.username | json_script:"request-user" }}
-    {{ now|time|json_script:"time-now" }}
+    {{ now|json_script:"time-now" }}
     <script src="{% static 'room.js' %}"></script>
 {% endblock content %}

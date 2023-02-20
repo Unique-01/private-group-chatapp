@@ -2,6 +2,7 @@ const roomName = JSON.parse(document.getElementById('room-name').textContent);
 const chatSocket = new WebSocket("ws://" + window.location.host + '/ws/roomchat/' + roomName + '/');
 const requestUser = JSON.parse(document.getElementById('request-user').textContent);
 const timeNow = JSON.parse(document.getElementById('time-now').textContent);
+var dateOptions = { hour: 'numeric', minute: 'numeric', hour12: true }
 
 chatSocket.onopen = function (e) {
     console.log("websocket connection successfull")
@@ -11,19 +12,22 @@ chatSocket.onclose = function (e) {
 }
 chatSocket.onmessage = function (e) {
     const data = JSON.parse(e.data)
-    var sendDiv = document.createElement("div").classList.add("d-flex","justify-content-end");
-    var receiveDiv = document.createElement("div").classList.add("d-flex","justify-content-start");
-    var p = document.createElement('p');
-    console.log(data.username,requestUser)
+    var sendDiv = document.createElement("div");
+    sendDiv.classList.add("d-flex","justify-content-end");
+    var receiveDiv = document.createElement("div");
+    receiveDiv.classList.add("d-flex","justify-content-start");
+    var sentMessage = document.createElement('p');
+    var receiveMessage = document.createElement('p');
+    var timestamp = new Date(data.timestamp).toLocaleString('en', dateOptions);
+    sentMessage.innerHTML = '<span>' + data.message + '</span>' + '<br/>' + '<small class="timestamp">' + timestamp.toLowerCase() + '</small>' ;
+    receiveMessage.innerHTML = '<small>' + data.username + '</small>' + '<br/>' + '<span>' + data.message + '</span>' + '<br/>' + '<small class="timestamp">' + timestamp.toLowerCase() + '</small>';
+    sendDiv.appendChild(sentMessage);
+    receiveDiv.appendChild(receiveMessage);
+    document.querySelector('#message-input').value = "";
     if (data.username == requestUser) {
-
-        p.innerHTML = '<small>' + data.message + '</span>';
-        sendDiv.appendChild(p)
         document.getElementById("message-box").appendChild(sendDiv)
 
     }else{
-        p.innerHTML = '<span>' + data.username + '</span>' + '<br/>' + '<small>' + data.message + '</span>';
-        receiveDiv.appendChild(p)
         document.getElementById("message-box").appendChild(receiveDiv)
 
     }
@@ -37,5 +41,5 @@ document.getElementById('message-input').onkeyup = function (e) {
 }
 document.getElementById('message-submit').onclick = function (e) {
     var message = document.getElementById('message-input').value;
-    chatSocket.send(JSON.stringify({ message: message, username: requestUser }))
+    chatSocket.send(JSON.stringify({ message: message, username: requestUser,timestamp:timeNow }))
 }

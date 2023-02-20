@@ -10,6 +10,9 @@ a{
 .min-height{
     min-height: 70vh;
 }
+.timestamp{
+    font-size: smaller;
+}
 .bg-violet{
     background-color: violet;
 }
