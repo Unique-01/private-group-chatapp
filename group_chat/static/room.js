@@ -13,13 +13,13 @@ chatSocket.onclose = function (e) {
 chatSocket.onmessage = function (e) {
     const data = JSON.parse(e.data)
     var sendDiv = document.createElement("div");
-    sendDiv.classList.add("d-flex","justify-content-end");
+    sendDiv.classList.add("d-flex","justify-content-end", "ml-10");
     var receiveDiv = document.createElement("div");
-    receiveDiv.classList.add("d-flex","justify-content-start");
+    receiveDiv.classList.add("d-flex","justify-content-start", "mr-10");
     var sentMessage = document.createElement('p');
     var receiveMessage = document.createElement('p');
     var timestamp = new Date(data.timestamp).toLocaleString('en', dateOptions);
-    sentMessage.innerHTML = '<span>' + data.message + '</span>' + '<br/>' + '<small class="timestamp">' + timestamp.toLowerCase() + '</small>' ;
+    sentMessage.innerHTML = '<span>' + data.message + '</span>' + '<br/>' + '<small class="d-flex justify-content-end timestamp">' + timestamp.toLowerCase() + '</small>' ;
     receiveMessage.innerHTML = '<small>' + data.username + '</small>' + '<br/>' + '<span>' + data.message + '</span>' + '<br/>' + '<small class="timestamp">' + timestamp.toLowerCase() + '</small>';
     sendDiv.appendChild(sentMessage);
     receiveDiv.appendChild(receiveMessage);

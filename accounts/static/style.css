@@ -19,12 +19,7 @@ a{
 .bg-violet:hover{
     background-color: blueviolet;
 }
-.bg-indigo{
-    background-color: indigo;
-}
-.bg-purple{
-    background-color: purple;
-}
+
 .bg-brown{
     background-color: blueviolet;
 }
@@ -33,4 +28,20 @@ a{
 }
 .big-text{
     font-size: large;
+}
+
+.mr-10{
+    margin-right: 350px;
+}
+
+.ml-10{
+    margin-left: 350px;
+}
+.send-bg{
+    /* background-color: cornflowerblue; */
+    /* background-color:chocolate; */
+    background: linear-gradient(to right,blueviolet,rgb(173, 98, 243));
+}
+.receive-bg{
+    background:linear-gradient(to right, green,rgb(36, 141, 36));
 }

@@ -7,7 +7,7 @@
         <div id="message-box">
             {% for message in messages %}
                 {% if message.sender == request.user %}
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex justify-content-end ml-10 send-bg mb-3 p-2 text-white rounded ">
                         <p>
                             <span>{{ message.content }}</span>
                             <br/>
@@ -21,7 +21,7 @@
                         </p>
                     </div>
                 {% else %}
-                    <div class="d-flex justify-content-start">
+                    <div class="d-flex justify-content-start mr-10 mb-3 p-2 rounded receive-bg text-white">
                         <p>
                             <small>{{ message.sender }}</small>
                             <br/>
