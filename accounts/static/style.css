@@ -31,17 +31,19 @@ a{
 }
 
 .mr-10{
-    margin-right: 350px;
+    margin-right: 100px;
 }
 
 .ml-10{
-    margin-left: 350px;
+    margin-left:100px;
 }
 .send-bg{
-    /* background-color: cornflowerblue; */
-    /* background-color:chocolate; */
     background: linear-gradient(to right,blueviolet,rgb(173, 98, 243));
 }
 .receive-bg{
-    background:linear-gradient(to right, green,rgb(36, 141, 36));
+    /* background:linear-gradient(to right, green,rgb(36, 141, 36)); */
+    background: linear-gradient(to right,blue,steelblue);
+}
+.room-name{
+    color:chocolate;
 }

@@ -3,23 +3,31 @@ const chatSocket = new WebSocket("ws://" + window.location.host + '/ws/roomchat/
 const requestUser = JSON.parse(document.getElementById('request-user').textContent);
 const timeNow = JSON.parse(document.getElementById('time-now').textContent);
 var dateOptions = { hour: 'numeric', minute: 'numeric', hour12: true }
+let connStatus = document.getElementById('status');
+connStatus.innerHTML = "Connecting"
 
 chatSocket.onopen = function (e) {
     console.log("websocket connection successfull")
+    connStatus.classList.add('text-success')
+    connStatus.innerHTML = "Connected";
 }
 chatSocket.onclose = function (e) {
     console.log("websocket connection is disconnected")
+    connStatus.classList.add('text-danger')
+    connStatus.innerHTML = "Disconnected";
 }
 chatSocket.onmessage = function (e) {
     const data = JSON.parse(e.data)
     var sendDiv = document.createElement("div");
-    sendDiv.classList.add("d-flex","justify-content-end", "ml-10");
+    sendDiv.classList.add("d-flex", "justify-content-end");
     var receiveDiv = document.createElement("div");
-    receiveDiv.classList.add("d-flex","justify-content-start", "mr-10");
+    receiveDiv.classList.add("d-flex", "justify-content-start");
     var sentMessage = document.createElement('p');
+    sentMessage.classList.add("ml-10", "send-bg", "p-2", "mb-3", "text-white", "rounded")
     var receiveMessage = document.createElement('p');
+    receiveMessage.classList.add("mr-10", "mb-3", "p-2", "rounded", "receive-bg", "text-white")
     var timestamp = new Date(data.timestamp).toLocaleString('en', dateOptions);
-    sentMessage.innerHTML = '<span>' + data.message + '</span>' + '<br/>' + '<small class="d-flex justify-content-end timestamp">' + timestamp.toLowerCase() + '</small>' ;
+    sentMessage.innerHTML = '<span>' + data.message + '</span>' + '<br/>' + '<small class="d-flex justify-content-end timestamp">' + timestamp.toLowerCase() + '</small>';
     receiveMessage.innerHTML = '<small>' + data.username + '</small>' + '<br/>' + '<span>' + data.message + '</span>' + '<br/>' + '<small class="timestamp">' + timestamp.toLowerCase() + '</small>';
     sendDiv.appendChild(sentMessage);
     receiveDiv.appendChild(receiveMessage);
@@ -27,11 +35,11 @@ chatSocket.onmessage = function (e) {
     if (data.username == requestUser) {
         document.getElementById("message-box").appendChild(sendDiv)
 
-    }else{
+    } else {
         document.getElementById("message-box").appendChild(receiveDiv)
 
     }
-   
+
 }
 document.getElementById('message-input').focus();
 document.getElementById('message-input').onkeyup = function (e) {
@@ -41,5 +49,5 @@ document.getElementById('message-input').onkeyup = function (e) {
 }
 document.getElementById('message-submit').onclick = function (e) {
     var message = document.getElementById('message-input').value;
-    chatSocket.send(JSON.stringify({ message: message, username: requestUser,timestamp:timeNow }))
+    chatSocket.send(JSON.stringify({ message: message, username: requestUser, timestamp: timeNow }))
 }
