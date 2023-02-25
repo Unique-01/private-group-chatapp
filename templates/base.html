@@ -16,14 +16,51 @@
               crossorigin="anonymous"/>
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-        <link rel="stylesheet" href="{% static 'style.css' %}">
+        <link rel="stylesheet" href="{% static 'style.css' %}"/>
         {% block extra_head %}
         {% endblock extra_head %}
     </head>
     <body>
         {% block body %}
-            {% block content %}
-            {% endblock content %}
+            <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light mb-5">
+                <a class="navbar-brand" href="#">UnicEnt</a>
+                <button class="navbar-toggler"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto ">
+                        {% if user.is_authenticated %}
+                            {% url 'index' as home %}
+                            <li class="nav-item {% if request.path == home %}active{% endif %}">
+                                <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'account_signup' %}">Signup</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+            <div class="mt-5">
+                {% block content %}
+                {% endblock content %}
+            </div>
         {% endblock body %}
         {% block extra_body %}
         {% endblock extra_body %}
