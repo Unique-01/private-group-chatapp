@@ -1,22 +1,17 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<!-- <a class="btn btn-dark m-2 m" href="{% url 'index' %}"> &laquo; back</a> -->
     <div class="container col-md-6 my-5 shadow rounded p-4 min-height">
         <h2 class="room-name">{{ room_name |capfirst }}</h2>
-        <p>
-            Connection Status: &nbsp;
-            <span id=status></span>
-        </p>
-        <hr/>
+        <hr />
         <div id="message-box">
             {% for message in messages %}
                 {% if message.sender == request.user %}
                     <div class="d-flex justify-content-end  ">
                         <p class="ml-10 send-bg mb-3 p-2 text-white rounded">
                             <span>{{ message.content }}</span>
-                            <br/>
-                            <small class="d-flex justify-content-end timestamp" >
+                            <br />
+                            <small class="d-flex justify-content-end timestamp">
                                 {% if message.timestamp|date == now|date %}
                                     {{ message.timestamp |time }}
                                 {% else %}
@@ -29,9 +24,9 @@
                     <div class="d-flex justify-content-start ">
                         <p class="mr-10 mb-3 p-2 rounded receive-bg text-white">
                             <small>{{ message.sender }}</small>
-                            <br/>
+                            <br />
                             <span>{{ message.content }}</span>
-                            <br/>
+                            <br />
                             <small class="timestamp">
                                 {% if message.timestamp|date == now|date %}
                                     {{ message.timestamp |time }}
@@ -44,11 +39,17 @@
                 {% endif %}
             {% endfor %}
         </div>
-        <div class="input-group mb-3 fixed-bottom container col-md-6">
-            <input class="form-control" type="text" id="message-input" />
-            <div class="input-group-append">
-                <button class="btn bg-violet text-white" id="message-submit">Send Message</button>
+        <div class="fixed-bottom">
+            <div class="input-group  container col-md-6">
+                <input class="form-control" type="text" id="message-input" />
+                <div class="input-group-append">
+                    <button class="btn bg-violet text-white" id="message-submit">Send Message</button>
+                </div>
             </div>
+            <p class="col-md-6">
+                Connection Status: &nbsp;
+                <span id="status"></span>
+            </p>
         </div>
     </div>
     {{ room_name|json_script:"room-name" }}

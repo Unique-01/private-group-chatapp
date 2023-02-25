@@ -1,12 +1,42 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-    <div id="message-box"></div>
-    <div>
-        <input type="text" id="message-input" />
-        <button id="message-submit">Send Message</button>
+    <div class="container col-md-6 my-5 shadow rounded p-4 min-height">
+        <h2 class="username">{{ username |capfirst }}</h2>
+        <hr />
+        <div id="message-box">
+            {% for message in messages %}
+                <div class="d-flex {% if message.sender == request.user %}justify-content-end {% else %} justify-content-start {% endif %}">
+                    <p class="mb-3 p-2 text-white rounded {% if message.sender == request.user %}ml-10 send-bg {% else %}mr-10 receive-bg{% endif %}">
+                        <span>{{ message.content }}</span>
+                        <br />
+                        <small class=" timestamp {% if message.sender == request.user %}d-flex justify-content-end{% endif %} ">
+                            {% if message.timestamp|date == now|date %}
+                                {{ message.timestamp |time }}
+                            {% else %}
+                                {{ message.timestamp }}
+                            {% endif %}
+                        </small>
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="fixed-bottom">
+            <div class="input-group container col-md-6">
+                <input class="form-control" type="text" id="message-input" />
+                <div class="input-group-append">
+                    <button class="btn bg-violet text-white" id="message-submit">Send Message</button>
+                </div>
+            </div>
+            <p class="col-md-6">
+                Connection Status: &nbsp;
+                <span id="status"></span>
+            </p>
+        </div>
     </div>
     {{ username|json_script:"username" }}
     {{ request.user.username|json_script:"request-user" }}
+    {{ now|json_script:"time-now" }}
     <script src="{% static 'privatechat.js' %}"></script>
+    
 {% endblock content %}

@@ -1,49 +1,51 @@
-body{
-    font-family: Georgia, 'Times New Roman', Times, serif;
+body {
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
-a{
-    text-decoration: none !important;
+a {
+  text-decoration: none !important;
 }
-.width{
-    max-width: 350px;
+.width {
+  max-width: 350px;
 }
-.min-height{
-    min-height: 70vh;
+.min-height {
+  min-height: 70vh;
 }
-.timestamp{
-    font-size: smaller;
+.timestamp {
+  font-size: smaller;
 }
-.bg-violet{
-    background-color: violet;
+.bg-violet {
+  background-color: violet;
 }
-.bg-violet:hover{
-    background-color: blueviolet;
-}
-
-.bg-brown{
-    background-color: blueviolet;
-}
-.bg-brown:hover{
-    background-color: violet;
-}
-.big-text{
-    font-size: large;
+.bg-violet:hover {
+  background-color: blueviolet;
 }
 
-.mr-10{
-    margin-right: 100px;
+.bg-brown {
+  background-color: blueviolet;
+}
+.bg-brown:hover {
+  background-color: violet;
+}
+.big-text {
+  font-size: large;
 }
 
-.ml-10{
-    margin-left:100px;
+.mr-10 {
+  margin-right: 100px;
 }
-.send-bg{
-    background: linear-gradient(to right,blueviolet,rgb(173, 98, 243));
+
+.ml-10 {
+  margin-left: 100px;
 }
-.receive-bg{
-    /* background:linear-gradient(to right, green,rgb(36, 141, 36)); */
-    background: linear-gradient(to right,blue,steelblue);
+.send-bg {
+  background: linear-gradient(to right, blueviolet, rgb(173, 98, 243));
 }
-.room-name{
-    color:chocolate;
+.receive-bg {
+  background: linear-gradient(to right, blue, steelblue);
+}
+.room-name {
+  color: chocolate;
+}
+.username {
+  color: crimson;
 }
